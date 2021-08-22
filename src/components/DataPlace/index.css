@@ -1,9 +1,39 @@
-
+.formc{
+    margin: 0 auto;
+    min-width: 120;
+}
 .holder{
-    width: 1000px;
+    width: 60%;
     height: auto;
     text-align: center;
     margin:0 auto;
+}
+.divline{
+    min-height: fit-content;
+    padding-top: 10px;
+}
+.searchbar{
+    padding-top:2%;
+}
+.textf{
+    width: 70%;
+    text-align: center;
+    margin:0 auto;
+}
+.title{
+    flex-grow: 1;
+}
+.grid{
+    text-align: center;
+    margin:0 auto;
+}
+.box{
+    text-align: center;
+    margin:0 auto;
+}
+.card{
+    width: 15%;
+    text-align: left;
 }
 .data{
     text-align: left;
