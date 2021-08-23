@@ -14,6 +14,7 @@ import rehypeKatex from 'rehype-katex'
 import './index.css'
 import { Divider } from '@material-ui/core';
 
+
 export default class DataPlace extends Component {
 	constructor(props) {
 		super(props);
@@ -30,51 +31,51 @@ export default class DataPlace extends Component {
 		return (
 			<div className="searchbar">
 				<Grid container spacing={4}>
-				<Grid item xs={2} className="grid">
-					<FormControl className="formc">
-						<InputLabel id="demo-simple-select-label">查询类别</InputLabel>
-						<Select
-							labelId="demo-simple-select-label"
-							native
-							onChange={(e) => { this.setState({ type: e.target.value }) }}
-							inputProps={{
-								name: 'age',
-								id: 'age-native-simple',
-							}}
-						>
-							<option aria-label="None"></option>
-							<option value={"def"}>定义</option>
-							<option value={"key"}>关键词</option>
-							<option value={"code"}>词汇</option>
-							<option value={"func"}>公式</option>
-							<option value={"imp"}>重点</option>
-							<option value={"ind"}>普通索引</option>
-						</Select>
+					<Grid item xs={2} className="grid">
+						<FormControl className="formc">
+							<InputLabel id="demo-simple-select-label">查询类别</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								native
+								onChange={(e) => { this.setState({ type: e.target.value }) }}
+								inputProps={{
+									name: 'age',
+									id: 'age-native-simple',
+								}}
+							>
+								<option aria-label="None"></option>
+								<option value={"def"}>定义</option>
+								<option value={"tabl"}>表格</option>
+								<option value={"key"}>关键词</option>
+								<option value={"code"}>词汇</option>
+								<option value={"func"}>公式</option>
+								<option value={"imp"}>重点</option>
+								<option value={"ind"}>普通索引</option>
+							</Select>
 						</FormControl>
 					</Grid>
 					<Grid item xs={2} className="grid">
 						<FormControl className="formc">
-						<InputLabel id="demo-simple-select-label">查询科目</InputLabel>
-						<Select
-							labelId="demo-simple-select-label"
-							native
-							onChange={(e) => { this.setState({ subject: e.target.value }) }}
-							inputProps={{
-								name: 'age',
-								id: 'age-native-simple',
-							}}
-						>
-							<option aria-label="None"></option>
-							<option value={"高等数学"}>高等数学</option>
-							<option value={"线性代数"}>线性代数</option>
-							<option value={"概率论与数理统计"}>概率论与数理统计</option>
-							<option value={"计算机组成原理"}>计算机组成原理</option>
-							<option value={"计算机网络"}>计算机网络</option>
-							<option value={"操作系统"}>操作系统</option>
-							<option value={"数据结构"}>数据结构</option>
-						</Select>
+							<InputLabel id="demo-simple-select-label">查询科目</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								native
+								onChange={(e) => { this.setState({ subject: e.target.value }) }}
+								inputProps={{
+									name: 'age',
+									id: 'age-native-simple',
+								}}
+							>
+								<option aria-label="None"></option>
+								<option value={"高等数学"}>高等数学</option>
+								<option value={"线性代数"}>线性代数</option>
+								<option value={"概率论与数理统计"}>概率论与数理统计</option>
+								<option value={"计算机组成原理"}>计算机组成原理</option>
+								<option value={"计算机网络"}>计算机网络</option>
+								<option value={"操作系统"}>操作系统</option>
+								<option value={"数据结构"}>数据结构</option>
+							</Select>
 						</FormControl>
-					
 					</Grid>
 					<Grid item xs={3} className="grid">
 						<TextField id="key" className='textf' onChange={(e) => { this.setState({ key: e.target.value }) }} label="查询内容" />
@@ -88,15 +89,18 @@ export default class DataPlace extends Component {
 							axios.get(querystring)
 								.then(res => {
 									this.forceUpdate();
-									var markdown = res.data;
-									if (markdown===""){
-										markdown="# 未搜索到记录"
+									var state = res.data.result
+									if (typeof state === "undefined") {
+										var markdown = res.data;
+										this.setState({ markdown: markdown });
+									} else {
+										markdown = "# " + state
+										this.setState({ markdown: markdown });
 									}
-									this.setState({ markdown:markdown });
 								}).catch(
-									err=>{
-										var markdown="# 搜索异常，请稍后重试"
-										this.setState({ markdown:markdown });
+									err => {
+										var markdown = "# 搜索异常，请稍后重试"
+										this.setState({ markdown: markdown });
 									}
 								)
 						}}>
