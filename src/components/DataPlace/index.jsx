@@ -44,6 +44,7 @@ export default class DataPlace extends Component {
 								}}
 							>
 								<option aria-label="None"></option>
+								<option value={"pie"}>数据块</option>
 								<option value={"def"}>定义</option>
 								<option value={"tabl"}>表格</option>
 								<option value={"key"}>关键词</option>
