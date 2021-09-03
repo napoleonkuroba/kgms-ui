@@ -97,14 +97,14 @@ export default class DataPlace extends Component {
 							console.log(data)
 							axios({
 								method: "post",
-								url: "http://localhost:3000/api/Search",
+								url: "http://napoleonxzy.cn:3000/api/Search",
 								data: data
 							}).then(res => {
 								var state = res.data.status
 								if (state==="success") {
 									axios({
 										method: "get",
-										url: "http://localhost:3000/api/resource/search.md",
+										url: "http://napoleonxzy.cn:3000/api/resource/search.md",
 									}).then(
 										res =>{
 											var data = res.data

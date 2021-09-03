@@ -24,7 +24,7 @@ export default class Home extends Component {
     isLogin=()=>{
         axios({
             method: "get",
-            url: "http://localhost:3000/api/IsLogin",
+            url: "http://napoleonxzy.cn:3000/api/IsLogin",
         }).then(res => {
             var state = res.data.status
             console.log(state)

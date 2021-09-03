@@ -57,7 +57,7 @@ class Login extends Component {
                 ()=>{
                     axios({
                         method: "get",
-                        url: "http://localhost:3000/api/IsLogin",
+                        url: "http://napoleonxzy.cn:3000/api/IsLogin",
                     }).then(res => {
                         var state = res.data.status
                         console.log(state)
@@ -115,7 +115,7 @@ class Login extends Component {
                                 onClick={() => {
                                     axios({
                                         method: "post",
-                                        url: "http://localhost:3000/api/Login",
+                                        url: "http://napoleonxzy.cn:3000/api/Login",
                                         data: {userid:this.state.userid,password:this.state.password}
                                     }).then(res => {
                                         var state = res.data.status

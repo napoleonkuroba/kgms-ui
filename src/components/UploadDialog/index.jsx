@@ -106,7 +106,7 @@ export default class UploadDialog extends Component {
             data.append('filename',this.state.filename)
             axios({
               method:"post",
-              url:"http://localhost:3000/api/ParseFile",
+              url:"http://napoleonxzy.cn:3000/api/ParseFile",
               data:data
             }).then(res => {
 									var state = res.data.status

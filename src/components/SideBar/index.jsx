@@ -59,7 +59,7 @@ class SideBar extends Component {
                             this.setState({ subject: e.target.value })
                             axios({
                                 method: "get",
-                                url: "http://localhost:3000/api/GetFiles/" + e.target.value,
+                                url: "http://napoleonxzy.cn:3000/api/GetFiles/" + e.target.value,
                             }).then(res => {
                                 console.log(res.data)
                                 this.setState({ files: res.data })
@@ -88,7 +88,7 @@ class SideBar extends Component {
                             
                             axios({
                                 method: "post",
-                                url: "http://localhost:3000/api/GetDataFile",
+                                url: "http://napoleonxzy.cn:3000/api/GetDataFile",
                                 data:{subject:this.state.subject,file_name:item}
                             }).then(res => {
                                 var data = res.data
