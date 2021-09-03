@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    textAlign: 'center',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -102,7 +103,7 @@ export default function TopBar() {
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            Beta 0.3
+            Beta 0.4
           </Typography>
           <Popover
             id="mouse-over-popover"
@@ -124,14 +125,12 @@ export default function TopBar() {
             disableRestoreFocus
           >
             <Typography variant="button">
-              当前版本 Beta 0.3 <br /> 
-              *新增 文件上传模块<br/> 
-              *新增 查询键值红色标注 <br />
-              *新增 表格类型、块类型查询键解析<br/>
+              当前版本 Beta 0.4 <br /> 
+              *新增 用户登录页<br/> 
+              *新增 全文本查询 <br />
               <br/>
               *修改 页面工具栏布局<br/>
               <br/>
-              *修复 查询异常不会做出提醒的问题<br/>
               
 
               </Typography>

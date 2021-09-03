@@ -1,4 +1,3 @@
-import ReactMarkdown from 'react-markdown'
 import React, { Component } from 'react'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid';
@@ -7,23 +6,19 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import rehypeRaw from 'rehype-raw'
-import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
 import './index.css'
 import { Divider } from '@material-ui/core';
-
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default class DataPlace extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			markdown: "",
 			subject: "",
 			type: "",
 			key: "",
-			passwd: ""
+			checked: false,
 		}
 	}
 
@@ -81,38 +76,59 @@ export default class DataPlace extends Component {
 					<Grid item xs={3} className="grid">
 						<TextField id="key" className='textf' onChange={(e) => { this.setState({ key: e.target.value }) }} label="查询内容" />
 					</Grid>
-					<Grid item xs={3} className="grid">
-						<TextField id="passwd" type="password" className='textf' onChange={(e) => { this.setState({ passwd: e.target.value }) }} label="密钥" />
+					<Grid item xs={2} className="grid">
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={this.state.checked}
+									onChange={() => {
+										this.setState({ checked: !this.state.checked })
+									}}
+									inputProps={{ 'aria-label': 'primary checkbox' }}
+								/>
+							}
+							label="模糊查询"
+						/>
+
 					</Grid>
 					<Grid item xs={2} className="grid">
 						<Button variant="contained" color="primary" id="read" onClick={() => {
-							var querystring = "http://napoleonxzy.cn:18080/Search/" + this.state.passwd + "/" + this.state.subject + "/" + this.state.type + "/" + this.state.key
-							axios.get(querystring)
-								.then(res => {
-									this.forceUpdate();
-									var state = res.data.result
-									if (typeof state === "undefined") {
-										var markdown = res.data;
-										this.setState({ markdown: markdown });
-									} else {
-										markdown = "# " + state
-										this.setState({ markdown: markdown });
-									}
-								}).catch(
-									err => {
-										var markdown = "# 搜索异常，请稍后重试"
-										this.setState({ markdown: markdown });
-									}
-								)
+							let data={ "subject": this.state.subject, "type": this.state.type, "key": this.state.key }
+							console.log(data)
+							axios({
+								method: "post",
+								url: "http://localhost:3000/api/Search",
+								data: data
+							}).then(res => {
+								var state = res.data.status
+								if (state==="success") {
+									axios({
+										method: "get",
+										url: "http://localhost:3000/api/resource/search.md",
+									}).then(
+										res =>{
+											var data = res.data
+											this.props.setPare( data );
+										}
+									)
+								} else {
+									var markdown = "# 搜索异常，请稍后重试"
+									this.props.setPare( markdown );
+								}
+							}).catch(
+								err => {
+									var markdown = "# 搜索异常，请稍后重试"
+									this.props.setPare(markdown );
+									console.log(err)
+								}
+							)
+
 						}}>
 							查询
 						</Button>
 					</Grid>
 				</Grid>
 				<Divider className="divline"></Divider>
-				<div className="holder">
-					<ReactMarkdown children={this.state.markdown} rehypePlugins={[rehypeRaw, rehypeKatex]} remarkPlugins={[remarkGfm, remarkMath,]} className="data" skipHtml={false}></ReactMarkdown>
-				</div>
 			</div>
 		)
 	}

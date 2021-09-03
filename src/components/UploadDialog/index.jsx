@@ -20,7 +20,6 @@ export default class UploadDialog extends Component {
     this.state = {
       subject: "",
       filename: "",
-      passwd: "",
       file: "暂未选择",
       disabled:false,
     }
@@ -37,7 +36,8 @@ export default class UploadDialog extends Component {
             将文件上传到服务器并进行快速解析
           </DialogContentText>
           <Grid container spacing={4}>
-            <Grid item xs={4} className="grid">
+            <Grid item xs={1}></Grid>
+            <Grid item xs={3} className="grid">
               <FormControl className="formc">
                 <InputLabel id="demo-simple-select-label">上传科目</InputLabel>
                 <Select
@@ -61,12 +61,10 @@ export default class UploadDialog extends Component {
               </FormControl>
             </Grid>
 
-            <Grid item xs={8} className="grid">
+            <Grid item xs={7} className="grid">
               <TextField id="filename" className='textf' onChange={(e) => { this.setState({ filename: e.target.value }) }} label="文件名" />
             </Grid>
-            <Grid item xs={12} className="grid">
-              <TextField id="passwd" type="password" className='textf' onChange={(e) => { this.setState({ passwd: e.target.value }) }} label="密钥" />
-            </Grid>
+            <Grid item xs={1}></Grid>
             <Grid item xs={12} className="grid">
               <Button
                 variant="contained"
@@ -97,17 +95,16 @@ export default class UploadDialog extends Component {
           }} color="primary">
             取消
           </Button>
-          <Button disabled={this.state.disabled}  onClick={(e) => {
+          <Button disabled={this.state.disabled}  onClick={() => {
             this.setState({file:"正在解析......"})
             this.setState({disabled:true})  
             const data = new FormData();
             data.append('file', this.fileInput.current.files[0]);
             data.append('subject',this.state.subject)
             data.append('filename',this.state.filename)
-            data.append('passwd',this.state.passwd)
             axios({
               method:"post",
-              url:"http://napoleonxzy.cn:18080/ParseFile",
+              url:"http://localhost:3000/api/ParseFile",
               data:data
             }).then(res => {
 									var state = res.data.status

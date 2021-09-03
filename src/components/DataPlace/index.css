@@ -2,12 +2,6 @@
     margin: 0 auto;
     min-width: 120;
 }
-.holder{
-    width: 60%;
-    height: auto;
-    text-align: center;
-    margin:0 auto;
-}
 .divline{
     min-height: fit-content;
     padding-top: 10px;
