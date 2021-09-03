@@ -53,16 +53,17 @@ export default class UploadDialog extends Component {
                   <option value={"高等数学"}>高等数学</option>
                   <option value={"线性代数"}>线性代数</option>
                   <option value={"概率论与数理统计"}>概率论与数理统计</option>
-                  <option value={"计算机组成原理"}>计算机组成原理</option>
-                  <option value={"计算机网络"}>计算机网络</option>
-                  <option value={"操作系统"}>操作系统</option>
                   <option value={"数据结构"}>数据结构</option>
+                  <option value={"操作系统"}>操作系统</option>
+                  <option value={"计算机网络"}>计算机网络</option>
+                  <option value={"计算机组成原理"}>计算机组成原理</option>
                 </Select>
               </FormControl>
             </Grid>
 
             <Grid item xs={7} className="grid">
-              <TextField id="filename" className='textf' onChange={(e) => { this.setState({ filename: e.target.value }) }} label="文件名" />
+              <TextField id="filename" className='textf' onChange={(e) => { this.setState({ filename: e.target.value }) }} label="文件名">
+              </TextField>
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid item xs={12} className="grid">
@@ -74,7 +75,8 @@ export default class UploadDialog extends Component {
                 <input
                   type="file"
                   onChange={(e) => {
-                    this.setState({ file: e.target.value })
+                    var name=e.target.value
+                    this.setState({ file: name })
                   }}
                   hidden
                   ref={this.fileInput}
